@@ -1,10 +1,12 @@
 package com.example.myapplicationprueba;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
 import com.example.myapplicationprueba.Retrofit.WeatherServices;
+import com.example.myapplicationprueba.models.GeneralClass;
 import com.example.myapplicationprueba.models.Main;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Fragment fragment= new MapFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_mapView,fragment).commit();
+
         loadData();
     }
 
@@ -41,18 +47,18 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         WeatherServices service = retrofit2.create(WeatherServices.class);
-       Call<Main> data=service.CurrentWeatherData("London,uk");
-       data.enqueue(new Callback<Main>() {
+       Call<GeneralClass> data=service.CurrentWeatherData("London");
+       data.enqueue(new Callback<GeneralClass>() {
                         @Override
-                        public void onResponse(Call<Main> call, Response<Main> response) {
+                        public void onResponse(Call<GeneralClass> call, Response<GeneralClass> response) {
                                 if(response.isSuccessful()){
-                                    System.out.println(response.body().getTemp_max());
+                                    System.out.println(response.body().getName());
 
                                 }
                         }
 
                         @Override
-                        public void onFailure(Call<Main> call, Throwable t) {
+                        public void onFailure(Call<GeneralClass> call, Throwable t) {
 
                         }
                     }

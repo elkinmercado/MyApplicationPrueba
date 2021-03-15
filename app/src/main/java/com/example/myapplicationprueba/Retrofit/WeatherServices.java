@@ -1,6 +1,7 @@
 package com.example.myapplicationprueba.Retrofit;
 
-import com.example.myapplicationprueba.models.Main;
+import com.example.myapplicationprueba.models.GeneralClass;
+
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -15,6 +16,6 @@ public interface WeatherServices {
             "useQueryString:true"
     })
     @GET("weather")
-    Call<Main> CurrentWeatherData(@Query("q") String location);
+    Call<GeneralClass> CurrentWeatherData(@Query("q") String location);
 
 }
